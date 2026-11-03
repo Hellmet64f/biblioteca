@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Escolar - App Teste</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration & Custom Animations -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            primary: '#6366f1',
+                            secondary: '#a855f7',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efeitos adicionais de background e vidro (Glassmorphism) */
+        body {
+            background-color: #0f172a;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.3) 0, transparent 50%);
+            background-attachment: fixed;
+            background-size: cover;
+            color: #f8fafc;
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ocultar elementos via classe */
+        .hidden-section {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-brand-primary selection:text-white antialiased">
+
+    <!-- ================= TELA DE LOGIN ================= -->
+    <div id="login-section" class="w-full max-w-md animate-fade-in">
+        <div class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden text-center">
+            <!-- Efeito de brilho de fundo no card -->
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-brand-primary rounded-full mix-blend-multiply filter blur-2xl opacity-30"></div>
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-secondary rounded-full mix-blend-multiply filter blur-2xl opacity-30"></div>
+
+            <div class="relative z-10">
+                <div class="w-16 h-16 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Acesso Restrito</h1>
+                <p class="text-slate-400 text-sm mb-8">Insira a senha do projeto para acessar o aplicativo.</p>
+
+                <form id="login-form" class="space-y-5">
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password-input" 
+                            placeholder="Digite a senha..." 
+                            class="w-full bg-slate-900/50 border border-slate-700 text-white px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all placeholder-slate-500"
+                            autocomplete="off"
+                        >
+                        <p id="error-message" class="text-red-400 text-xs text-left mt-2 hidden absolute -bottom-6 left-1">Senha incorreta. Tente novamente.</p>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-brand-primary/30 transform hover:-translate-y-1 transition-all duration-300 active:scale-95 mt-4"
+                    >
+                        Acessar Loja
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TELA DA LOJA / APP (Oculta por padrão) ================= -->
+    <div id="store-section" class="w-full max-w-5xl hidden-section">
+        
+        <!-- Navbar minimalista -->
+        <header class="flex items-center justify-between py-6 mb-8 border-b border-slate-800 animate-slide-up">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-accent rounded-lg flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold tracking-wide">Lab<span class="text-brand-accent">Escolar</span></h2>
+            </div>
+            <button onclick="logout()" class="text-slate-400 hover:text-white text-sm font-medium transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sair
+            </button>
+        </header>
+
+        <!-- Produto Único -->
+        <main class="flex flex-col md:flex-row items-center justify-between gap-12 bg-slate-900/40 backdrop-blur-sm border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl animate-slide-up" style="animation-delay: 0.1s;">
+            
+            <!-- Imagem / Ícone do App -->
+            <div class="w-full md:w-1/2 flex justify-center">
+                <div class="relative w-48 h-48 sm:w-64 sm:h-64 animate-float">
+                    <!-- Fundo decorativo -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary via-brand-secondary to-brand-accent rounded-3xl blur-xl opacity-40"></div>
+                    <!-- Ícone principal -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-slate-800 to-slate-900 rounded-3xl border border-slate-700 shadow-2xl flex items-center justify-center z-10 overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <!-- Reflexo de luz na tela -->
+                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações e Download -->
+            <div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
+                <span class="px-4 py-1.5 rounded-full bg-brand-primary/20 text-brand-accent text-xs font-semibold tracking-wider uppercase mb-4 border border-brand-primary/30">
+                    Trabalho Escolar
+                </span>
+                
+                <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
+                    App Teste
+                </h1>
+                
+                <p class="text-slate-400 text-base sm:text-lg mb-8 leading-relaxed">
+                    Aplicativo desenvolvido para apresentação de projeto escolar. Clique no botão abaixo para iniciar o download do arquivo compactado.
+                </p>
+
+                <!-- Informações extras -->
+                <div class="flex items-center gap-6 mb-8 text-sm text-slate-500">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <span>Versão 1.0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Livre de vírus</span>
+                    </div>
+                </div>
+
+                <!-- Botão de Download -->
+                <a 
+                    href="https://www.mediafire.com/file/h6sqwxt5yap6qxj/index.html/file" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-brand-dark font-bold rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300 w-full sm:w-auto shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)]"
+                >
+                    <!-- Efeito de brilho ao passar o mouse -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-slate-200/50 to-transparent translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span class="relative z-10 text-lg">Baixar App Teste</span>
+                </a>
+            </div>
+        </main>
+        
+        <footer class="text-center text-slate-500 text-sm mt-12 animate-slide-up" style="animation-delay: 0.2s;">
+            <p>&copy; 2026 Projeto Escolar. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // Configuração da senha
+        const SENHA_CORRETA = "A2-ZAP-MZ-V2";
+        
+        // Elementos do DOM
+        const loginForm = document.getElementById('login-form');
+        const passwordInput = document.getElementById('password-input');
+        const errorMessage = document.getElementById('error-message');
+        const loginSection = document.getElementById('login-section');
+        const storeSection = document.getElementById('store-section');
+
+        // Função que lida com a entrada com sucesso na loja (Reutilizável)
+        function entrarNaLoja() {
+            // Ocultar erros caso existam
+            errorMessage.classList.add('hidden');
+            passwordInput.classList.remove('border-red-500');
+            
+            // Animação de saída da tela de login
+            loginSection.style.opacity = '0';
+            loginSection.style.transform = 'scale(0.95)';
+            loginSection.style.transition = 'all 0.4s ease';
+
+            setTimeout(() => {
+                // Esconder tela de login do fluxo do DOM
+                loginSection.classList.add('hidden-section');
+                
+                // Mostrar a loja
+                storeSection.classList.remove('hidden-section');
+                // Reiniciar as animações css (hack simples para forçar reflow)
+                storeSection.style.animation = 'none';
+                storeSection.offsetHeight; 
+                storeSection.style.animation = null;
+            }, 400);
+        }
+
+        // Lidar com o envio do formulário de login via SENHA
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const senhaDigitada = passwordInput.value.trim();
+
+            if (senhaDigitada === SENHA_CORRETA) {
+                entrarNaLoja();
+            } else {
+                // Senha Incorreta
+                errorMessage.classList.remove('hidden');
+                passwordInput.classList.add('border-red-500');
+                
+                // Animação de tremer (shake)
+                loginForm.classList.remove('animate-shake');
+                void loginForm.offsetWidth; // Força reflow
+                loginForm.classList.add('animate-shake');
+                
+                // Limpar input
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
+
+        // ================= SISTEMA DE ATALHO SECRETO (F + G + 1) =================
+        const teclasPressionadas = new Set();
+
+        window.addEventListener('keydown', function(e) {
+            // Adiciona a tecla pressionada ao conjunto (tudo minúsculo para evitar bugs com CapsLock)
+            teclasPressionadas.add(e.key.toLowerCase());
+
+            // Verifica se a combinação secreta está ativa
+            if (teclasPressionadas.has('f') && teclasPressionadas.has('g') && teclasPressionadas.has('1')) {
+                // Se a seção de login não estiver oculta, efetuamos a liberação
+                if (!loginSection.classList.contains('hidden-section')) {
+                    teclasPressionadas.clear(); // Limpa as teclas para evitar múltiplos acionamentos seguidos
+                    entrarNaLoja(); // Chama a função de sucesso
+                }
+            }
+        });
+
+        window.addEventListener('keyup', function(e) {
+            // Remove a tecla do conjunto quando ela é solta
+            teclasPressionadas.delete(e.key.toLowerCase());
+        });
+        // =======================================================================
+
+        // Função para voltar à tela inicial (Logout)
+        function logout() {
+            storeSection.style.opacity = '0';
+            storeSection.style.transition = 'all 0.4s ease';
+            
+            setTimeout(() => {
+                storeSection.classList.add('hidden-section');
+                storeSection.style.opacity = '1';
+                
+                loginSection.classList.remove('hidden-section');
+                loginSection.style.opacity = '1';
+                loginSection.style.transform = 'scale(1)';
+                
+                passwordInput.value = '';
+                passwordInput.focus();
+            }, 400);
+        }
+
+        // Adicionar animação customizada via injeção de estilo (para o botão)
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shimmer {
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
