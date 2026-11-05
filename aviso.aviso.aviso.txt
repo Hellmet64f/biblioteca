@@ -1,0 +1,3 @@
+Olá, esse projetor é para a escola, estamos criando para lançar nosso trabalho para
+resto da turma, e melhorar o acesso para todo mundo para entrar nos trabalhos
+Online do nono ano. Estar em uma versão beta, para que possa ser testado e melhorado ao longo do tempo, esse projetor pode ter mais trabalho não apenas do nono ano, mas pode ter de toda escola.
